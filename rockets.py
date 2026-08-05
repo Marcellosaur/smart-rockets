@@ -39,3 +39,4 @@ class Rocket:
         white_color = (255, 255, 255)
         dimensions = (int(self.position.x), int(self.position.y), self.width, self.height)
         pygame.draw.rect(surface, white_color, dimensions)
+
