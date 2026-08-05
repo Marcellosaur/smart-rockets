@@ -2,6 +2,7 @@ import pygame
 import sys
 from rockets import Rocket
 from dna import DNA
+from population import Population
 
 # 1. Initialize Pygame modules
 pygame.init()
@@ -15,9 +16,14 @@ pygame.display.set_caption("Smart Rockets - Setup")
 # 3. Setup a clock to control the frame rate
 clock = pygame.time.Clock()
 
-# Creating a rocket instance with a DNA
+# Creating a rocket population with lifespan dna
+POPULATION_SIZE = 100
 LIFESPAN = 200 
-my_rocket = Rocket(SCREEN_WIDTH, SCREEN_HEIGHT, DNA(LIFESPAN)) 
+
+
+# # Instantiate the entire pool at once
+population = Population(POPULATION_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT, LIFESPAN)
+# # --------------------------------
 
 # --- NEW TARGET PROPERTIES ---
 TARGET_RADIUS = 20
@@ -45,8 +51,8 @@ while True:
     # -------------------
 
     # Update physics, then draw the rocket
-    my_rocket.update()
-    my_rocket.draw(screen)
+    population.update()
+    population.draw(screen)
 
     # Refresh the display to show the new frame
     pygame.display.flip()
