@@ -19,6 +19,14 @@ clock = pygame.time.Clock()
 LIFESPAN = 200 
 my_rocket = Rocket(SCREEN_WIDTH, SCREEN_HEIGHT, DNA(LIFESPAN)) 
 
+# --- NEW TARGET PROPERTIES ---
+TARGET_RADIUS = 20
+# Center the target horizontally, place it 100 pixels down from the top wall
+target_x = SCREEN_WIDTH / 2
+target_y = 100
+target_position = pygame.math.Vector2(target_x, target_y)
+# -----------------------------
+
 # 4. The Core Game Loop
 while True:
     # Handle user inputs/events (like clicking the "X" to close the window)
@@ -29,6 +37,12 @@ while True:
 
     # Clear the screen with a solid color (Red, Green, Blue)
     screen.fill((40, 44, 52))  # Dark gray background
+
+    # --- DRAW TARGET ---
+    # Pygame expects: (surface, color, center_coordinates_tuple, radius)
+    target_color = (235, 87, 87)  # Soft red color
+    pygame.draw.circle(screen, target_color, (int(target_position.x), int(target_position.y)), TARGET_RADIUS)
+    # -------------------
 
     # Update physics, then draw the rocket
     my_rocket.update()
