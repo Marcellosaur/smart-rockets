@@ -1,6 +1,7 @@
 import pygame
 import sys
 from rockets import Rocket
+from dna import DNA
 
 # 1. Initialize Pygame modules
 pygame.init()
@@ -14,8 +15,9 @@ pygame.display.set_caption("Smart Rockets - Setup")
 # 3. Setup a clock to control the frame rate
 clock = pygame.time.Clock()
 
-# Creating a rocket instance
-my_rocket = Rocket(SCREEN_WIDTH, SCREEN_HEIGHT)
+# Creating a rocket instance with a DNA
+LIFESPAN = 200 
+my_rocket = Rocket(SCREEN_WIDTH, SCREEN_HEIGHT, DNA(LIFESPAN)) 
 
 # 4. The Core Game Loop
 while True:
