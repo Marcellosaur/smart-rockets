@@ -1,5 +1,6 @@
 import pygame
 import sys
+from rockets import Rocket
 
 # 1. Initialize Pygame modules
 pygame.init()
@@ -13,13 +14,8 @@ pygame.display.set_caption("Smart Rockets - Setup")
 # 3. Setup a clock to control the frame rate
 clock = pygame.time.Clock()
 
-# ROCKET SIZE
-ROCKET_WIDTH = 10
-ROCKET_HEIGHT = 40
-
-# ROCKET POSITION
-rect_x = (SCREEN_WIDTH / 2) - (ROCKET_WIDTH / 2)
-rect_y = SCREEN_HEIGHT - ROCKET_HEIGHT
+# Creating a rocket instance
+my_rocket = Rocket(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # 4. The Core Game Loop
 while True:
@@ -32,11 +28,9 @@ while True:
     # Clear the screen with a solid color (Red, Green, Blue)
     screen.fill((40, 44, 52))  # Dark gray background
 
-    # DRAW ROCKET
-    white_color = (255, 255, 255)
-    rectangle_dimensions = (rect_x, rect_y, ROCKET_WIDTH, ROCKET_HEIGHT)
-    
-    pygame.draw.rect(screen, white_color, rectangle_dimensions)
+    # Update physics, then draw the rocket
+    my_rocket.update()
+    my_rocket.draw(screen)
 
     # Refresh the display to show the new frame
     pygame.display.flip()
