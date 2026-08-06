@@ -4,6 +4,8 @@ from dna import DNA
 
 class Rocket:
     def __init__(self, screen_width, screen_height, dna=None, lifespan=200):
+        
+        self.fitness = 0
         # Storing screen dimensions for position calculations
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -47,3 +49,13 @@ class Rocket:
         dimensions = (int(self.position.x), int(self.position.y), self.width, self.height)
         pygame.draw.rect(surface, white_color, dimensions)
 
+    def calculate_fitness(self, target_position):
+        # Calculate the straight-line distance between rocket position and target position
+        distance = self.position.distance_to(target_position)
+        
+        # Prevent a Division-by-Zero error if a rocket lands perfectly on the exact pixel center
+        if distance < 1:
+            distance = 1
+            
+        # Invert the distance so small distance = massive fitness score
+        self.fitness = 1.0 / distance
