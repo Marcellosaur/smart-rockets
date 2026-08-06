@@ -19,3 +19,8 @@ class Population:
         # Draw every single rocket onto the screen
         for rocket in self.rockets:
             rocket.draw(surface)
+
+    def evaluate(self, target_pos):
+        # 1. Command every rocket to calculate its own fitness score
+        for rocket in self.rockets:
+            rocket.calculate_fitness(target_pos)

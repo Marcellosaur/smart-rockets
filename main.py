@@ -32,7 +32,7 @@ target_x = SCREEN_WIDTH / 2
 target_y = 100
 target_position = pygame.math.Vector2(target_x, target_y)
 # -----------------------------
-
+lifecycle_counter = 0
 # 4. The Core Game Loop
 while True:
     # Handle user inputs/events (like clicking the "X" to close the window)
@@ -50,8 +50,14 @@ while True:
     pygame.draw.circle(screen, target_color, (int(target_position.x), int(target_position.y)), TARGET_RADIUS)
     # -------------------
 
-    # Update physics, then draw the rocket
-    population.update()
+    if lifecycle_counter < LIFESPAN:
+        population.update()
+        lifecycle_counter += 1
+    else:
+        population.evaluate(target_position)
+        lifecycle_counter = 0
+        print("Generation finished! Evaluating fitness...")
+    
     population.draw(screen)
 
     # Refresh the display to show the new frame
