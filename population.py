@@ -14,10 +14,10 @@ class Population:
         for _ in range(self.pop_size):
             self.rockets.append(Rocket(screen_width, screen_height, lifespan=lifespan))
 
-    def update(self):
+    def update(self, obstacles=None, target_position=None, target_radius=20):
         # Update every single rocket in our pool
         for rocket in self.rockets:
-            rocket.update()
+            rocket.update(obstacles, target_position, target_radius)
 
     def draw(self, surface):
         # Draw every single rocket onto the screen
