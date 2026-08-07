@@ -3,6 +3,7 @@ import sys
 from rockets import Rocket
 from dna import DNA
 from population import Population
+from obstacles import Obstacle
 
 # 1. Initialize Pygame modules
 pygame.init()
@@ -32,6 +33,12 @@ target_x = SCREEN_WIDTH / 2
 target_y = 100
 target_position = pygame.math.Vector2(target_x, target_y)
 # -----------------------------
+
+# Horizontal barrier between the launch pad and the target
+obstacles = [
+    Obstacle(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2, 300, 20),
+]
+
 lifecycle_counter = 0
 # 4. The Core Game Loop
 while True:
@@ -50,13 +57,19 @@ while True:
     pygame.draw.circle(screen, target_color, (int(target_position.x), int(target_position.y)), TARGET_RADIUS)
     # -------------------
 
+    # --- DRAW OBSTACLES ---
+    for obstacle in obstacles:
+        obstacle.draw(screen)
+    # ---------------------
+
     if lifecycle_counter < LIFESPAN:
-        population.update()
+        population.update(obstacles, target_position, TARGET_RADIUS)
         lifecycle_counter += 1
     else:
         population.evaluate(target_position)
+        population.selection()
         lifecycle_counter = 0
-        print("Generation finished! Evaluating fitness...")
+        print("Generation finished! Selecting new population...")
     
     population.draw(screen)
 
