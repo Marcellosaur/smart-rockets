@@ -55,8 +55,9 @@ while True:
         lifecycle_counter += 1
     else:
         population.evaluate(target_position)
+        population.selection()
         lifecycle_counter = 0
-        print("Generation finished! Evaluating fitness...")
+        print("Generation finished! Selecting new population...")
     
     population.draw(screen)
 
